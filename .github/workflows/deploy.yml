@@ -1,0 +1,40 @@
+name: h7z-utils deploy
+
+on: [push]
+
+env:
+  NPM_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+
+    concurrency:
+      group: ${{ github.ref }}
+      cancel-in-progress: true
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: volta-cli/action@v1
+      - run: npm ci
+
+      - name: Dependencies audit
+        run: npm audit
+
+      - name: Build
+        run: npm run build
+
+      - name: Format check
+        run: npm run format
+
+      - name: Lint check
+        run: npm run lint
+
+      - name: Test
+        run: npm run test
+
+      - name: Release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: npm run semantic-release

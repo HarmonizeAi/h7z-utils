@@ -1,0 +1,54 @@
+{
+  "name": "h7z-utils",
+  "version": "1.0.0",
+  "description": "A consolidation of all the different utility things harmonize has accumulated over the years. I am tried of copy and pasting things.",
+  "main": "./build/index.js",
+  "types": "./build/index.d.ts",
+  "engines": {
+    "node": ">=16"
+  },
+  "directories": {
+    "test": "test"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  },
+  "scripts": {
+    "prepare": "husky install",
+    "tsc": "tsc",
+    "build": "npm run clean && npm run tsc",
+    "clean": "rm -rf build && rm -rf coverage && rm -rf .nyc_output",
+    "test": "jest",
+    "test:watch": "jest watch",
+    "lint": "eslint src --max-warnings=0 --ext .ts",
+    "format:fix": "prettier \"src/**/*.ts\" --write",
+    "format": "prettier \"src/**/*.ts\" --check",
+    "check:all": "npm run format && npm run lint && npm run test && npm audit",
+    "semantic-release": "semantic-release"
+  },
+  "devDependencies": {
+    "@faker-js/faker": "^7.3.0",
+    "@semantic-release/changelog": "^6.0.1",
+    "@semantic-release/commit-analyzer": "^9.0.2",
+    "@semantic-release/github": "^8.0.4",
+    "@semantic-release/npm": "^9.0.1",
+    "@semantic-release/release-notes-generator": "^10.0.3",
+    "@types/jest": "^28.1.4",
+    "@typescript-eslint/eslint-plugin": "^5.29.0",
+    "@typescript-eslint/parser": "^5.29.0",
+    "eslint": "^8.18.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-import-resolver-typescript": "^3.1.0",
+    "eslint-plugin-eslint-comments": "^3.2.0",
+    "eslint-plugin-import": "^2.26.0",
+    "husky": "^8.0.1",
+    "jest": "^28.1.2",
+    "prettier": "^2.7.1",
+    "semantic-release": "^19.0.3",
+    "source-map-support": "^0.5.21",
+    "ts-jest": "^28.0.5",
+    "typescript": "^4.7.4"
+  },
+  "author": "firemuzzy",
+  "license": "MIT"
+}
