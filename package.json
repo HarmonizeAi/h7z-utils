@@ -1,6 +1,6 @@
 {
   "name": "h7z-utils",
-  "version": "1.0.0",
+  "version": "0.0.0-development",
   "description": "A consolidation of all the different utility things harmonize has accumulated over the years. I am tried of copy and pasting things.",
   "main": "./build/index.js",
   "types": "./build/index.d.ts",
@@ -9,6 +9,10 @@
   },
   "directories": {
     "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/HarmonizeAi/h7z-utils.git"
   },
   "publishConfig": {
     "registry": "https://npm.pkg.github.com"
@@ -25,6 +29,10 @@
     "format": "prettier \"src/**/*.ts\" --check",
     "check:all": "npm run format && npm run lint && npm run test && npm audit",
     "semantic-release": "semantic-release"
+  },
+  "volta": {
+    "node": "16.15.1",
+    "npm": "8.11.0"
   },
   "devDependencies": {
     "@faker-js/faker": "^7.3.0",
