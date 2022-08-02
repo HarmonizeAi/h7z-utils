@@ -1,5 +1,3 @@
 import * as either from "./either";
 
-export {
-  either
-}
+export { either };
