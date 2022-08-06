@@ -1,4 +1,4 @@
-import { Left, Right, isLeft, isRight, match, mapLeft, mapRight } from "./either";
+import { Left, Right, isLeft, isRight, match, mapLeft, mapRight, getRight, getLeft } from "./either";
 
 describe("either", () => {
   describe("Left", () => {
@@ -16,6 +16,14 @@ describe("either", () => {
 
     test("isRight", () => {
       expect(isRight(leftObj)).toBe(false);
+    });
+
+    test("getRight of left ", () => {
+      expect(getRight(leftObj)).toBe(undefined);
+    });
+
+    test("getLeft of left ", () => {
+      expect(getLeft(leftObj)).toBe(leftValue);
     });
 
     test("match", () => {
@@ -70,6 +78,14 @@ describe("either", () => {
 
     test("isRight", () => {
       expect(isRight(obj)).toBe(true);
+    });
+
+    test("getRight of right ", () => {
+      expect(getRight(obj)).toBe(value);
+    });
+
+    test("getLeft of right ", () => {
+      expect(getLeft(obj)).toBe(undefined);
     });
 
     test("match", () => {
