@@ -37,6 +37,21 @@ export const isLeft = <L, R>(input: Either<L, R>): input is Left<L> => {
   return input.tag === "left";
 };
 
+export const getLeft = <L, R>(input?: Either<L, R>): L | undefined => {
+  if (input && isLeft(input)) {
+    return input.value;
+  } else {
+    return undefined;
+  }
+};
+export const getRight = <L, R>(input?: Either<L, R>): R | undefined => {
+  if (input && isRight(input)) {
+    return input.value;
+  } else {
+    return undefined;
+  }
+};
+
 export const Right = <T>(value: T): Right<T> => {
   return {
     tag: "right",
