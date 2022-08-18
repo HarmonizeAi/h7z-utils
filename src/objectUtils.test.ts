@@ -39,12 +39,12 @@ function createTestObj(): TestObj {
 }
 
 describe("ObjectUtils", () => {
-  describe("updateIfEmpty", () => {
+  describe("inplaceUpdateIfEmpty", () => {
     test("not update and exiting string value", () => {
       const testObj = createTestObj();
       const testObjToUpdate = Object.assign({}, testObj);
 
-      ObjectUtils.updateIfEmpty(testObjToUpdate, "strValue", "hi");
+      ObjectUtils.inplaceUpdateIfEmpty(testObjToUpdate, "strValue", "hi");
 
       expect(testObjToUpdate).toStrictEqual(testObj);
     });
@@ -54,7 +54,7 @@ describe("ObjectUtils", () => {
       const testObjToUpdate = Object.assign({}, testObj);
 
       const fakeValue = faker.lorem.words(3);
-      ObjectUtils.updateIfEmpty(testObjToUpdate, "undefinedStrValue", fakeValue);
+      ObjectUtils.inplaceUpdateIfEmpty(testObjToUpdate, "undefinedStrValue", fakeValue);
 
       expect(testObjToUpdate).toStrictEqual({ ...testObj, undefinedStrValue: fakeValue });
     });
@@ -64,7 +64,7 @@ describe("ObjectUtils", () => {
       const testObjToUpdate = Object.assign({}, testObj);
 
       const fakeValue = faker.lorem.words(3);
-      ObjectUtils.updateIfEmpty(testObjToUpdate, "nullStrValue", fakeValue);
+      ObjectUtils.inplaceUpdateIfEmpty(testObjToUpdate, "nullStrValue", fakeValue);
 
       expect(testObjToUpdate).toStrictEqual({ ...testObj, nullStrValue: fakeValue });
     });
@@ -74,7 +74,7 @@ describe("ObjectUtils", () => {
       const testObjToUpdate = Object.assign({}, testObj);
 
       const fakeValue = faker.lorem.words(3);
-      ObjectUtils.updateIfEmpty(testObjToUpdate, "emptyStrValue", fakeValue);
+      ObjectUtils.inplaceUpdateIfEmpty(testObjToUpdate, "emptyStrValue", fakeValue);
 
       expect(testObjToUpdate).toStrictEqual({ ...testObj, emptyStrValue: fakeValue });
     });
@@ -84,7 +84,7 @@ describe("ObjectUtils", () => {
       const testObjToUpdate = Object.assign({}, testObj);
 
       const fakeValue = faker.lorem.words(3);
-      ObjectUtils.updateIfEmpty(testObjToUpdate, "emptyStrWhenTrimmedValue", fakeValue);
+      ObjectUtils.inplaceUpdateIfEmpty(testObjToUpdate, "emptyStrWhenTrimmedValue", fakeValue);
 
       expect(testObjToUpdate).toStrictEqual({ ...testObj, emptyStrWhenTrimmedValue: fakeValue });
     });
@@ -94,7 +94,7 @@ describe("ObjectUtils", () => {
       const testObjToUpdate = Object.assign({}, testObj);
 
       const fakeValue = faker.datatype.number();
-      ObjectUtils.updateIfEmpty(testObjToUpdate, "undefinedNumberValue", fakeValue);
+      ObjectUtils.inplaceUpdateIfEmpty(testObjToUpdate, "undefinedNumberValue", fakeValue);
 
       expect(testObjToUpdate).toStrictEqual({ ...testObj, undefinedNumberValue: fakeValue });
     });
@@ -104,7 +104,7 @@ describe("ObjectUtils", () => {
       const testObjToUpdate = Object.assign({}, testObj);
 
       const fakeValue = faker.datatype.number();
-      ObjectUtils.updateIfEmpty(testObjToUpdate, "nullNumberValue", fakeValue);
+      ObjectUtils.inplaceUpdateIfEmpty(testObjToUpdate, "nullNumberValue", fakeValue);
 
       expect(testObjToUpdate).toStrictEqual({ ...testObj, nullNumberValue: fakeValue });
     });
@@ -114,7 +114,7 @@ describe("ObjectUtils", () => {
       const testObjToUpdate = Object.assign({}, testObj);
 
       const fakeValue = faker.datatype.number();
-      ObjectUtils.updateIfEmpty(testObjToUpdate, "numberValue", fakeValue);
+      ObjectUtils.inplaceUpdateIfEmpty(testObjToUpdate, "numberValue", fakeValue);
 
       expect(testObjToUpdate).toStrictEqual(testObj);
     });
@@ -126,7 +126,7 @@ describe("ObjectUtils", () => {
       const fakeValueA = faker.lorem.words(3);
       const fakeValueB = faker.lorem.words(3);
       const udpateObj = { a: fakeValueA, b: fakeValueB };
-      ObjectUtils.updateIfEmpty(testObjToUpdate, "undefinedObjValue", udpateObj);
+      ObjectUtils.inplaceUpdateIfEmpty(testObjToUpdate, "undefinedObjValue", udpateObj);
 
       expect(testObjToUpdate).toStrictEqual({ ...testObj, undefinedObjValue: udpateObj });
     });
@@ -138,7 +138,7 @@ describe("ObjectUtils", () => {
       const fakeValueA = faker.lorem.words(3);
       const fakeValueB = faker.lorem.words(3);
       const udpateObj = { a: fakeValueA, b: fakeValueB };
-      ObjectUtils.updateIfEmpty(testObjToUpdate, "nullObjValue", udpateObj);
+      ObjectUtils.inplaceUpdateIfEmpty(testObjToUpdate, "nullObjValue", udpateObj);
 
       expect(testObjToUpdate).toStrictEqual({ ...testObj, nullObjValue: udpateObj });
     });
@@ -150,9 +150,170 @@ describe("ObjectUtils", () => {
       const fakeValueA = faker.lorem.words(3);
       const fakeValueB = faker.lorem.words(3);
       const udpateObj = { a: fakeValueA, b: fakeValueB };
-      ObjectUtils.updateIfEmpty(testObjToUpdate, "objValue", udpateObj);
+      ObjectUtils.inplaceUpdateIfEmpty(testObjToUpdate, "objValue", udpateObj);
 
       expect(testObjToUpdate).toStrictEqual(testObj);
+    });
+  });
+
+  describe("setUpdateObjectIfEmpty", () => {
+    test("not update and exiting string value", () => {
+      const testObj = createTestObj();
+      const testObjCopy = Object.assign({}, testObj);
+      const updateObj: Partial<TestObj> = {};
+
+      ObjectUtils.setUpdateObjectIfEmpty(testObj, "strValue", "hi", updateObj);
+
+      // test object should not have changed
+      expect(testObj).toStrictEqual(testObjCopy);
+
+      expect(updateObj).toStrictEqual({});
+    });
+
+    test("update an exiting undefined string value", () => {
+      const testObj = createTestObj();
+      const testObjCopy = Object.assign({}, testObj);
+      const updateObj: Partial<TestObj> = {};
+
+      const fakeValue = faker.lorem.words(3);
+      ObjectUtils.setUpdateObjectIfEmpty(testObj, "undefinedStrValue", fakeValue, updateObj);
+
+      // test object should not have changed
+      expect(testObj).toStrictEqual(testObjCopy);
+
+      expect(updateObj).toStrictEqual({ undefinedStrValue: fakeValue });
+    });
+
+    test("update an exiting null string value", () => {
+      const testObj = createTestObj();
+      const testObjCopy = Object.assign({}, testObj);
+      const updateObj: Partial<TestObj> = {};
+
+      const fakeValue = faker.lorem.words(3);
+      ObjectUtils.setUpdateObjectIfEmpty(testObj, "nullStrValue", fakeValue, updateObj);
+
+      // test object should not have changed
+      expect(testObj).toStrictEqual(testObjCopy);
+
+      expect(updateObj).toStrictEqual({ nullStrValue: fakeValue });
+    });
+
+    test("update an exiting empty string value", () => {
+      const testObj = createTestObj();
+      const testObjCopy = Object.assign({}, testObj);
+      const updateObj: Partial<TestObj> = {};
+
+      const fakeValue = faker.lorem.words(3);
+      ObjectUtils.setUpdateObjectIfEmpty(testObj, "emptyStrValue", fakeValue, updateObj);
+
+      // test object should not have changed
+      expect(testObj).toStrictEqual(testObjCopy);
+
+      expect(updateObj).toStrictEqual({ emptyStrValue: fakeValue });
+    });
+
+    test("update an exiting empty after trimmed string value", () => {
+      const testObj = createTestObj();
+      const testObjCopy = Object.assign({}, testObj);
+      const updateObj: Partial<TestObj> = {};
+
+      const fakeValue = faker.lorem.words(3);
+      ObjectUtils.setUpdateObjectIfEmpty(testObj, "emptyStrWhenTrimmedValue", fakeValue, updateObj);
+
+      // test object should not have changed
+      expect(testObj).toStrictEqual(testObjCopy);
+
+      expect(updateObj).toStrictEqual({ emptyStrWhenTrimmedValue: fakeValue });
+    });
+
+    test("update an undefined number value", () => {
+      const testObj = createTestObj();
+      const testObjCopy = Object.assign({}, testObj);
+      const updateObj: Partial<TestObj> = {};
+
+      const fakeValue = faker.datatype.number();
+      ObjectUtils.setUpdateObjectIfEmpty(testObj, "undefinedNumberValue", fakeValue, updateObj);
+
+      // test object should not have changed
+      expect(testObj).toStrictEqual(testObjCopy);
+
+      expect(updateObj).toStrictEqual({ undefinedNumberValue: fakeValue });
+    });
+
+    test("update an null number value", () => {
+      const testObj = createTestObj();
+      const testObjCopy = Object.assign({}, testObj);
+      const updateObj: Partial<TestObj> = {};
+
+      const fakeValue = faker.datatype.number();
+      ObjectUtils.setUpdateObjectIfEmpty(testObj, "nullNumberValue", fakeValue, updateObj);
+
+      // test object should not have changed
+      expect(testObj).toStrictEqual(testObjCopy);
+
+      expect(updateObj).toStrictEqual({ nullNumberValue: fakeValue });
+    });
+
+    test("do not update an existing number value", () => {
+      const testObj = createTestObj();
+      const testObjCopy = Object.assign({}, testObj);
+      const updateObj: Partial<TestObj> = {};
+
+      const fakeValue = faker.datatype.number();
+      ObjectUtils.setUpdateObjectIfEmpty(testObj, "numberValue", fakeValue, updateObj);
+
+      // test object should not have changed
+      expect(testObj).toStrictEqual(testObjCopy);
+
+      expect(updateObj).toStrictEqual({});
+    });
+
+    test("update an existing undefined object value", () => {
+      const testObj = createTestObj();
+      const testObjCopy = Object.assign({}, testObj);
+      const updateObj: Partial<TestObj> = {};
+
+      const fakeValueA = faker.lorem.words(3);
+      const fakeValueB = faker.lorem.words(3);
+      const udpateObj = { a: fakeValueA, b: fakeValueB };
+      ObjectUtils.setUpdateObjectIfEmpty(testObj, "undefinedObjValue", udpateObj, updateObj);
+
+      // test object should not have changed
+      expect(testObj).toStrictEqual(testObjCopy);
+
+      expect(updateObj).toStrictEqual({ undefinedObjValue: udpateObj });
+    });
+
+    test("update an existing null object value", () => {
+      const testObj = createTestObj();
+      const testObjCopy = Object.assign({}, testObj);
+      const updateObj: Partial<TestObj> = {};
+
+      const fakeValueA = faker.lorem.words(3);
+      const fakeValueB = faker.lorem.words(3);
+      const udpateObj = { a: fakeValueA, b: fakeValueB };
+      ObjectUtils.setUpdateObjectIfEmpty(testObj, "nullObjValue", udpateObj, updateObj);
+
+      // test object should not have changed
+      expect(testObj).toStrictEqual(testObjCopy);
+
+      expect(updateObj).toStrictEqual({ nullObjValue: udpateObj });
+    });
+
+    test("do not update an existing object value", () => {
+      const testObj = createTestObj();
+      const testObjCopy = Object.assign({}, testObj);
+      const updateObj: Partial<TestObj> = {};
+
+      const fakeValueA = faker.lorem.words(3);
+      const fakeValueB = faker.lorem.words(3);
+      const udpateObj = { a: fakeValueA, b: fakeValueB };
+      ObjectUtils.setUpdateObjectIfEmpty(testObj, "objValue", udpateObj, updateObj);
+
+      // test object should not have changed
+      expect(testObj).toStrictEqual(testObjCopy);
+
+      expect(updateObj).toStrictEqual({});
     });
   });
 });
