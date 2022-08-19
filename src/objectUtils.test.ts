@@ -184,6 +184,47 @@ describe("ObjectUtils", () => {
       expect(updateObj).toStrictEqual({ undefinedStrValue: fakeValue });
     });
 
+    test("update an exiting undefined string and trim the value", () => {
+      const testObj = createTestObj();
+      const testObjCopy = Object.assign({}, testObj);
+      const updateObj: Partial<TestObj> = {};
+
+      const fakeValue = faker.lorem.words(3);
+      const fakeValueWSpaces = "   " + fakeValue + "  ";
+      ObjectUtils.setUpdateObjectIfEmpty(testObj, "undefinedStrValue", fakeValueWSpaces, updateObj);
+
+      // test object should not have changed
+      expect(testObj).toStrictEqual(testObjCopy);
+
+      expect(updateObj).toStrictEqual({ undefinedStrValue: fakeValue });
+    });
+
+    test("not update an exiting undefined string value when new value is empty", () => {
+      const testObj = createTestObj();
+      const testObjCopy = Object.assign({}, testObj);
+      const updateObj: Partial<TestObj> = {};
+
+      const fakeValue = "";
+      ObjectUtils.setUpdateObjectIfEmpty(testObj, "undefinedStrValue", fakeValue, updateObj);
+
+      // test object should not have changed
+      expect(testObj).toStrictEqual(testObjCopy);
+      expect(updateObj).toStrictEqual({});
+    });
+
+    test("not update an exiting undefined string value when new value is trimmed empty", () => {
+      const testObj = createTestObj();
+      const testObjCopy = Object.assign({}, testObj);
+      const updateObj: Partial<TestObj> = {};
+
+      const fakeValue = "   ";
+      ObjectUtils.setUpdateObjectIfEmpty(testObj, "undefinedStrValue", fakeValue, updateObj);
+
+      // test object should not have changed
+      expect(testObj).toStrictEqual(testObjCopy);
+      expect(updateObj).toStrictEqual({});
+    });
+
     test("update an exiting null string value", () => {
       const testObj = createTestObj();
       const testObjCopy = Object.assign({}, testObj);
@@ -196,6 +237,47 @@ describe("ObjectUtils", () => {
       expect(testObj).toStrictEqual(testObjCopy);
 
       expect(updateObj).toStrictEqual({ nullStrValue: fakeValue });
+    });
+
+    test("update an exiting null string and trim the value", () => {
+      const testObj = createTestObj();
+      const testObjCopy = Object.assign({}, testObj);
+      const updateObj: Partial<TestObj> = {};
+
+      const fakeValue = faker.lorem.words(3);
+      const fakeValueWSpaces = "   " + fakeValue + "  ";
+      ObjectUtils.setUpdateObjectIfEmpty(testObj, "nullStrValue", fakeValueWSpaces, updateObj);
+
+      // test object should not have changed
+      expect(testObj).toStrictEqual(testObjCopy);
+
+      expect(updateObj).toStrictEqual({ nullStrValue: fakeValue });
+    });
+
+    test("not update an exiting null string value when new value is empty", () => {
+      const testObj = createTestObj();
+      const testObjCopy = Object.assign({}, testObj);
+      const updateObj: Partial<TestObj> = {};
+
+      const fakeValue = "";
+      ObjectUtils.setUpdateObjectIfEmpty(testObj, "nullStrValue", fakeValue, updateObj);
+
+      // test object should not have changed
+      expect(testObj).toStrictEqual(testObjCopy);
+      expect(updateObj).toStrictEqual({});
+    });
+
+    test("not update an exiting null string value when new value is trimmed empty", () => {
+      const testObj = createTestObj();
+      const testObjCopy = Object.assign({}, testObj);
+      const updateObj: Partial<TestObj> = {};
+
+      const fakeValue = "   ";
+      ObjectUtils.setUpdateObjectIfEmpty(testObj, "nullStrValue", fakeValue, updateObj);
+
+      // test object should not have changed
+      expect(testObj).toStrictEqual(testObjCopy);
+      expect(updateObj).toStrictEqual({});
     });
 
     test("update an exiting empty string value", () => {
@@ -212,6 +294,21 @@ describe("ObjectUtils", () => {
       expect(updateObj).toStrictEqual({ emptyStrValue: fakeValue });
     });
 
+    test("update an exiting empty string and trim the value", () => {
+      const testObj = createTestObj();
+      const testObjCopy = Object.assign({}, testObj);
+      const updateObj: Partial<TestObj> = {};
+
+      const fakeValue = faker.lorem.words(3);
+      const fakeValueWSpaces = "   " + fakeValue + "  ";
+      ObjectUtils.setUpdateObjectIfEmpty(testObj, "emptyStrValue", fakeValueWSpaces, updateObj);
+
+      // test object should not have changed
+      expect(testObj).toStrictEqual(testObjCopy);
+
+      expect(updateObj).toStrictEqual({ emptyStrValue: fakeValue });
+    });
+
     test("update an exiting empty after trimmed string value", () => {
       const testObj = createTestObj();
       const testObjCopy = Object.assign({}, testObj);
@@ -219,6 +316,21 @@ describe("ObjectUtils", () => {
 
       const fakeValue = faker.lorem.words(3);
       ObjectUtils.setUpdateObjectIfEmpty(testObj, "emptyStrWhenTrimmedValue", fakeValue, updateObj);
+
+      // test object should not have changed
+      expect(testObj).toStrictEqual(testObjCopy);
+
+      expect(updateObj).toStrictEqual({ emptyStrWhenTrimmedValue: fakeValue });
+    });
+
+    test("update an exiting empty after trimmed string and trim the value", () => {
+      const testObj = createTestObj();
+      const testObjCopy = Object.assign({}, testObj);
+      const updateObj: Partial<TestObj> = {};
+
+      const fakeValue = faker.lorem.words(3);
+      const fakeValueWSpaces = "   " + fakeValue + "  ";
+      ObjectUtils.setUpdateObjectIfEmpty(testObj, "emptyStrWhenTrimmedValue", fakeValueWSpaces, updateObj);
 
       // test object should not have changed
       expect(testObj).toStrictEqual(testObjCopy);
