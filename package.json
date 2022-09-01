@@ -4,6 +4,14 @@
   "description": "A consolidation of all the different utility things harmonize has accumulated over the years. I am tried of copy and pasting things.",
   "main": "./build/index.js",
   "types": "./build/index.d.ts",
+  "exports": {
+    "server": "./build/server.js"
+  },
+  "typesVersions": {
+    "*": {
+      "server": ["build/server.d.ts"]
+    }
+  },
   "engines": {
     "node": ">=16"
   },

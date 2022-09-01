@@ -1,7 +1,4 @@
-import * as either from "./either";
-import * as streams from "./streams";
-
+import * as either from "./shared/either";
 export { either };
-export { streams };
-export { ObjectUtils } from "./objectUtils";
-export { MyLogger } from "./myLogger";
+export { ObjectUtils } from "./shared/objectUtils";
+export { MyLogger } from "./shared/myLogger";
