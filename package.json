@@ -2,16 +2,16 @@
   "name": "@harmonizeai/h7z-utils",
   "version": "0.0.0-development",
   "description": "A consolidation of all the different utility things harmonize has accumulated over the years. I am tried of copy and pasting things.",
-  "main": "./build/index.js",
-  "types": "./build/index.d.ts",
   "exports": {
+    ".": "./build/index.js",
     "server": "./build/server.js",
     "either": "./build/shared/either.js"
   },
   "typesVersions": {
     "*": {
       "server": ["build/server.d.ts"],
-      "either": ["build/shared/either.d.ts"]
+      "either": ["build/shared/either.d.ts"],
+      ".": ["build/index.d.ts"]
     }
   },
   "engines": {
