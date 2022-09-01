@@ -5,11 +5,13 @@
   "main": "./build/index.js",
   "types": "./build/index.d.ts",
   "exports": {
-    "server": "./build/server.js"
+    "server": "./build/server.js",
+    "either": "./build/shared/either.js"
   },
   "typesVersions": {
     "*": {
-      "server": ["build/server.d.ts"]
+      "server": ["build/server.d.ts"],
+      "either": ["build/shared/either.d.ts"]
     }
   },
   "engines": {
