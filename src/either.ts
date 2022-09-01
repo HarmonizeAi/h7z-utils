@@ -37,6 +37,27 @@ export const isLeft = <L, R>(input: Either<L, R>): input is Left<L> => {
   return input.tag === "left";
 };
 
+export const isEither = <T, V>(input: unknown): input is Either<T, V> => {
+  if (input == null || typeof input != "object") {
+    return false;
+  }
+  const inputRecord = input as Record<string, unknown>;
+
+  if (!("tag" in inputRecord)) {
+    return false;
+  }
+
+  if (!(inputRecord.tag == "left" || inputRecord.tag == "right")) {
+    return false;
+  }
+
+  if (!("value" in input)) {
+    return false;
+  }
+
+  return true;
+};
+
 export const getLeft = <L, R>(input?: Either<L, R>): L | undefined => {
   if (input && isLeft(input)) {
     return input.value;

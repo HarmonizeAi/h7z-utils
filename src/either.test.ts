@@ -1,4 +1,4 @@
-import { Left, Right, isLeft, isRight, match, mapLeft, mapRight, getRight, getLeft } from "./either";
+import { Left, Right, isLeft, isRight, match, mapLeft, mapRight, getRight, getLeft, isEither } from "./either";
 
 describe("either", () => {
   describe("Left", () => {
@@ -123,6 +123,65 @@ describe("either", () => {
       expect(mapFn).not.toHaveBeenCalled();
       expect(isRight(res)).toBe(true);
       expect(res.value).toEqual(oldValue);
+    });
+  });
+
+  describe("isEither", () => {
+    it("should fail on a string", () => {
+      expect(isEither("poop")).toBe(false);
+    });
+
+    it("should fail on a String", () => {
+      expect(isEither(new String("poop"))).toBe(false);
+    });
+
+    it("should fail on a number", () => {
+      expect(isEither(12)).toBe(false);
+    });
+
+    it("should fail on an array", () => {
+      expect(isEither([1, 2, 3])).toBe(false);
+    });
+
+    it("should fail on an set", () => {
+      expect(isEither(new Set(["tag", "value"]))).toBe(false);
+    });
+
+    it("should fail on an Map", () => {
+      const mapValue = new Map();
+      mapValue.set("value", "a_value");
+      mapValue.set("tag", "left");
+      expect(isEither(mapValue)).toBe(false);
+    });
+
+    it("should fail on an object with a wrong tag", () => {
+      const obj = { tag: "random", value: "stuff" };
+      expect(isEither(obj)).toBe(false);
+    });
+
+    it("should succeed on an object", () => {
+      const obj = { tag: "right", value: "stuff" };
+      expect(isEither(obj)).toBe(true);
+    });
+
+    it("should succeed on a Left", () => {
+      const obj = Left("error");
+      expect(isEither(obj)).toBe(true);
+    });
+
+    it("should succeed on a Right", () => {
+      const obj = Right("value");
+      expect(isEither(obj)).toBe(true);
+    });
+
+    it("should type check correctly", () => {
+      const obj = { tag: "right", value: "random" } as unknown; // force to be unknown
+      expect(isEither(obj)).toBe(true);
+
+      if (!isEither<string, string>(obj)) {
+        throw new Error("should not get here");
+      }
+      expect(obj.value === "random").toBe(true);
     });
   });
 });
