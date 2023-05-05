@@ -1,4 +1,4 @@
-type WithTTL<V> = [V, number];
+export type WithTTL<V> = [V, number];
 
 const CLEAN_INTERVAL_MS = 5 * 60 * 1000; // clean every 5 minutes
 
