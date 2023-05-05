@@ -1,7 +1,7 @@
 import chalk from "chalk";
 
 const LogLevels = ["log", "error", "warn", "debug", "verbose"] as const;
-export type LogLevel = typeof LogLevels[number];
+export type LogLevel = (typeof LogLevels)[number];
 
 export const enabledLogLevels: Set<LogLevel> = new Set<LogLevel>(["log", "error", "warn", "debug", "verbose"]);
 function isLogLevelEnabled(level: LogLevel): boolean {
