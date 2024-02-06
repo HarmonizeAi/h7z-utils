@@ -1,5 +1,11 @@
-export type Left<T> = { tag: "left"; value: T };
-export type Right<T> = { tag: "right"; value: T };
+export interface Left<T> {
+  tag: "left";
+  value: T;
+}
+export interface Right<T> {
+  tag: "right";
+  value: T;
+}
 export type Either<L, R> = Left<L> | Right<R>;
 
 export const match = <T, L, R>(input: Either<L, R>, left: (left: L) => T, right: (right: R) => T) => {
@@ -29,10 +35,10 @@ export const mapLeft = <L, R, T>(input: Either<L, R>, fn: (r: L) => T): Either<T
   }
 };
 
-export const flatMapRight = <L, R, NewL, NewR>(
+export const flatMapRight = <L, R, NewL, NewR, Ret extends Right<NewR> | Left<NewL>>(
   input: Either<L, R>,
-  fn: (r: R) => Right<NewR> | Left<NewL>,
-): Either<L | NewL, NewR> => {
+  fn: (r: R) => Ret
+): Ret | Left<L> => {
   if (isRight(input)) {
     const newValue = fn(input.value);
     return newValue;
@@ -41,10 +47,10 @@ export const flatMapRight = <L, R, NewL, NewR>(
   }
 };
 
-export const flatMapLeft = <L, R, NewL, NewR>(
+export const flatMapLeft = <L, R, NewL, NewR, Ret extends Right<NewR> | Left<NewL>>(
   input: Either<L, R>,
-  fn: (r: L) => Right<NewR> | Left<NewL>,
-): Either<NewL, R | NewR> => {
+  fn: (r: L) => Ret
+): Ret | Right<R> => {
   if (isLeft(input)) {
     const newValue = fn(input.value);
     return newValue;
