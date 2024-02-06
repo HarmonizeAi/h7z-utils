@@ -17,14 +17,17 @@ export class MyLogger {
     return this._lastTimestamp;
   }
 
-  constructor(public context: string, public readonly isTimestampEnabled = false) {}
+  constructor(
+    public context: string,
+    public readonly isTimestampEnabled = false,
+  ) {}
 
   error(
     message: string,
     trace = "",
     extras?: Record<string, unknown>,
     user?: { uid: string; email?: string },
-    skipRemoteCapture?: boolean
+    skipRemoteCapture?: boolean,
   ) {
     if (!isLogLevelEnabled("error")) {
       return;
@@ -91,7 +94,7 @@ function printMessage(
   isTimeDiffEnabled?: boolean,
   extras?: Record<string, unknown>,
   writeStreamType?: "stdout" | "stderr",
-  didRemoteCapture?: boolean
+  didRemoteCapture?: boolean,
 ) {
   const output = isPlainObject(message) ? `${color("Object:")}\n${JSON.stringify(message, null, 2)}\n` : color(message);
 

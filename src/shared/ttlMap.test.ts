@@ -6,12 +6,12 @@ describe("TTLMap", () => {
     const map = new TTLMap<string, string>(10 * 1000);
 
     const toTest = [
-      { key: faker.random.alphaNumeric(5), value: faker.random.alphaNumeric(10) },
-      { key: faker.random.alphaNumeric(5), value: faker.random.alphaNumeric(10) },
-      { key: faker.random.alphaNumeric(5), value: faker.random.alphaNumeric(10) },
-      { key: faker.random.alphaNumeric(5), value: undefined /* do not insert in test */ },
-      { key: faker.random.alphaNumeric(5), value: undefined /* do not insert in test */ },
-      { key: faker.random.alphaNumeric(5), value: undefined /* do not insert in test */ },
+      { key: faker.string.alphanumeric(5), value: faker.string.alphanumeric(10) },
+      { key: faker.string.alphanumeric(5), value: faker.string.alphanumeric(10) },
+      { key: faker.string.alphanumeric(5), value: faker.string.alphanumeric(10) },
+      { key: faker.string.alphanumeric(5), value: undefined /* do not insert in test */ },
+      { key: faker.string.alphanumeric(5), value: undefined /* do not insert in test */ },
+      { key: faker.string.alphanumeric(5), value: undefined /* do not insert in test */ },
     ];
 
     toTest.forEach((data) => {
@@ -33,12 +33,12 @@ describe("TTLMap", () => {
     const map = new TTLMap<string, string>(10 * 1000);
 
     const toTest = [
-      { key: faker.random.alphaNumeric(5), value: faker.random.alphaNumeric(10) },
-      { key: faker.random.alphaNumeric(5), value: faker.random.alphaNumeric(10) },
-      { key: faker.random.alphaNumeric(5), value: faker.random.alphaNumeric(10) },
-      { key: faker.random.alphaNumeric(5), value: undefined /* do not insert in test */ },
-      { key: faker.random.alphaNumeric(5), value: undefined /* do not insert in test */ },
-      { key: faker.random.alphaNumeric(5), value: undefined /* do not insert in test */ },
+      { key: faker.string.alphanumeric(5), value: faker.string.alphanumeric(10) },
+      { key: faker.string.alphanumeric(5), value: faker.string.alphanumeric(10) },
+      { key: faker.string.alphanumeric(5), value: faker.string.alphanumeric(10) },
+      { key: faker.string.alphanumeric(5), value: undefined /* do not insert in test */ },
+      { key: faker.string.alphanumeric(5), value: undefined /* do not insert in test */ },
+      { key: faker.string.alphanumeric(5), value: undefined /* do not insert in test */ },
     ];
 
     toTest.forEach((data) => {
@@ -68,10 +68,10 @@ describe("TTLMap", () => {
       const now = Date.now();
 
       const toTest = [
-        { key: faker.random.alphaNumeric(5), value: faker.random.alphaNumeric(10) },
-        { key: "expire1", value: faker.random.alphaNumeric(10), expireOn: now - 1000 },
-        { key: "expire2", value: faker.random.alphaNumeric(10), expireOn: now - 1 },
-        { key: faker.random.alphaNumeric(5), value: faker.random.alphaNumeric(10) },
+        { key: faker.string.alphanumeric(5), value: faker.string.alphanumeric(10) },
+        { key: "expire1", value: faker.string.alphanumeric(10), expireOn: now - 1000 },
+        { key: "expire2", value: faker.string.alphanumeric(10), expireOn: now - 1 },
+        { key: faker.string.alphanumeric(5), value: faker.string.alphanumeric(10) },
       ];
 
       toTest.forEach((data) => {
@@ -97,10 +97,10 @@ describe("TTLMap", () => {
       const now = Date.now();
 
       const toTest = [
-        { key: faker.random.alphaNumeric(5), value: faker.random.alphaNumeric(10) },
-        { key: "expire1", value: faker.random.alphaNumeric(10), expireOn: now - 1000 },
-        { key: "expire2", value: faker.random.alphaNumeric(10), expireOn: now - 1 },
-        { key: faker.random.alphaNumeric(5), value: faker.random.alphaNumeric(10) },
+        { key: faker.string.alphanumeric(5), value: faker.string.alphanumeric(10) },
+        { key: "expire1", value: faker.string.alphanumeric(10), expireOn: now - 1000 },
+        { key: "expire2", value: faker.string.alphanumeric(10), expireOn: now - 1 },
+        { key: faker.string.alphanumeric(5), value: faker.string.alphanumeric(10) },
       ];
 
       toTest.forEach((data) => {
@@ -131,9 +131,9 @@ describe("TTLMap", () => {
       const map = new TTLMap<string, string>(10 * 1000);
 
       const toTest = [
-        { key: faker.random.alphaNumeric(5), value: faker.random.alphaNumeric(10) },
-        { key: faker.random.alphaNumeric(5), value: faker.random.alphaNumeric(10) },
-        { key: faker.random.alphaNumeric(5), value: faker.random.alphaNumeric(10) },
+        { key: faker.string.alphanumeric(5), value: faker.string.alphanumeric(10) },
+        { key: faker.string.alphanumeric(5), value: faker.string.alphanumeric(10) },
+        { key: faker.string.alphanumeric(5), value: faker.string.alphanumeric(10) },
       ];
 
       toTest.forEach((data) => {
@@ -161,10 +161,10 @@ describe("TTLMap", () => {
       const now = Date.now();
 
       const toTest = [
-        { key: faker.random.alphaNumeric(5), value: faker.random.alphaNumeric(10) },
-        { key: "expire1", value: faker.random.alphaNumeric(10), expireOn: now - 1000 },
-        { key: "expire2", value: faker.random.alphaNumeric(10), expireOn: now - 1 },
-        { key: faker.random.alphaNumeric(5), value: faker.random.alphaNumeric(10) },
+        { key: faker.string.alphanumeric(5), value: faker.string.alphanumeric(10) },
+        { key: "expire1", value: faker.string.alphanumeric(10), expireOn: now - 1000 },
+        { key: "expire2", value: faker.string.alphanumeric(10), expireOn: now - 1 },
+        { key: faker.string.alphanumeric(5), value: faker.string.alphanumeric(10) },
       ];
 
       toTest.forEach((data) => {
@@ -195,9 +195,9 @@ describe("TTLMap", () => {
       const map = new TTLMap<string, string>(10 * 1000);
 
       const toTest = [
-        { key: faker.random.alphaNumeric(5), value: faker.random.alphaNumeric(10) },
-        { key: faker.random.alphaNumeric(5), value: faker.random.alphaNumeric(10) },
-        { key: faker.random.alphaNumeric(5), value: faker.random.alphaNumeric(10) },
+        { key: faker.string.alphanumeric(5), value: faker.string.alphanumeric(10) },
+        { key: faker.string.alphanumeric(5), value: faker.string.alphanumeric(10) },
+        { key: faker.string.alphanumeric(5), value: faker.string.alphanumeric(10) },
       ];
 
       toTest.forEach((data) => {
@@ -225,10 +225,10 @@ describe("TTLMap", () => {
       const now = Date.now();
 
       const toTest = [
-        { key: faker.random.alphaNumeric(5), value: faker.random.alphaNumeric(10) },
-        { key: "expire1", value: faker.random.alphaNumeric(10), expireOn: now - 1000 },
-        { key: "expire2", value: faker.random.alphaNumeric(10), expireOn: now - 1 },
-        { key: faker.random.alphaNumeric(5), value: faker.random.alphaNumeric(10) },
+        { key: faker.string.alphanumeric(5), value: faker.string.alphanumeric(10) },
+        { key: "expire1", value: faker.string.alphanumeric(10), expireOn: now - 1000 },
+        { key: "expire2", value: faker.string.alphanumeric(10), expireOn: now - 1 },
+        { key: faker.string.alphanumeric(5), value: faker.string.alphanumeric(10) },
       ];
 
       toTest.forEach((data) => {
@@ -259,9 +259,9 @@ describe("TTLMap", () => {
       const map = new TTLMap<string, string>(10 * 1000);
 
       const toTest = [
-        { key: faker.random.alphaNumeric(5), value: faker.random.alphaNumeric(10) },
-        { key: faker.random.alphaNumeric(5), value: faker.random.alphaNumeric(10) },
-        { key: faker.random.alphaNumeric(5), value: faker.random.alphaNumeric(10) },
+        { key: faker.string.alphanumeric(5), value: faker.string.alphanumeric(10) },
+        { key: faker.string.alphanumeric(5), value: faker.string.alphanumeric(10) },
+        { key: faker.string.alphanumeric(5), value: faker.string.alphanumeric(10) },
       ];
 
       toTest.forEach((data) => {
@@ -289,10 +289,10 @@ describe("TTLMap", () => {
       const now = Date.now();
 
       const toTest = [
-        { key: faker.random.alphaNumeric(5), value: faker.random.alphaNumeric(10) },
-        { key: "expire1", value: faker.random.alphaNumeric(10), expireOn: now - 1000 },
-        { key: "expire2", value: faker.random.alphaNumeric(10), expireOn: now - 1 },
-        { key: faker.random.alphaNumeric(5), value: faker.random.alphaNumeric(10) },
+        { key: faker.string.alphanumeric(5), value: faker.string.alphanumeric(10) },
+        { key: "expire1", value: faker.string.alphanumeric(10), expireOn: now - 1000 },
+        { key: "expire2", value: faker.string.alphanumeric(10), expireOn: now - 1 },
+        { key: faker.string.alphanumeric(5), value: faker.string.alphanumeric(10) },
       ];
 
       toTest.forEach((data) => {

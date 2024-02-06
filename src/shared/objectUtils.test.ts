@@ -93,7 +93,7 @@ describe("ObjectUtils", () => {
       const testObj = createTestObj();
       const testObjToUpdate = Object.assign({}, testObj);
 
-      const fakeValue = faker.datatype.number();
+      const fakeValue = faker.number.int();
       ObjectUtils.inplaceUpdateIfEmpty(testObjToUpdate, "undefinedNumberValue", fakeValue);
 
       expect(testObjToUpdate).toStrictEqual({ ...testObj, undefinedNumberValue: fakeValue });
@@ -103,7 +103,7 @@ describe("ObjectUtils", () => {
       const testObj = createTestObj();
       const testObjToUpdate = Object.assign({}, testObj);
 
-      const fakeValue = faker.datatype.number();
+      const fakeValue = faker.number.int();
       ObjectUtils.inplaceUpdateIfEmpty(testObjToUpdate, "nullNumberValue", fakeValue);
 
       expect(testObjToUpdate).toStrictEqual({ ...testObj, nullNumberValue: fakeValue });
@@ -113,7 +113,7 @@ describe("ObjectUtils", () => {
       const testObj = createTestObj();
       const testObjToUpdate = Object.assign({}, testObj);
 
-      const fakeValue = faker.datatype.number();
+      const fakeValue = faker.number.int();
       ObjectUtils.inplaceUpdateIfEmpty(testObjToUpdate, "numberValue", fakeValue);
 
       expect(testObjToUpdate).toStrictEqual(testObj);
@@ -343,7 +343,7 @@ describe("ObjectUtils", () => {
       const testObjCopy = Object.assign({}, testObj);
       const updateObj: Partial<TestObj> = {};
 
-      const fakeValue = faker.datatype.number();
+      const fakeValue = faker.number.int();
       ObjectUtils.setUpdateObjectIfEmpty(testObj, "undefinedNumberValue", fakeValue, updateObj);
 
       // test object should not have changed
@@ -357,7 +357,7 @@ describe("ObjectUtils", () => {
       const testObjCopy = Object.assign({}, testObj);
       const updateObj: Partial<TestObj> = {};
 
-      const fakeValue = faker.datatype.number();
+      const fakeValue = faker.number.int();
       ObjectUtils.setUpdateObjectIfEmpty(testObj, "nullNumberValue", fakeValue, updateObj);
 
       // test object should not have changed
@@ -371,7 +371,7 @@ describe("ObjectUtils", () => {
       const testObjCopy = Object.assign({}, testObj);
       const updateObj: Partial<TestObj> = {};
 
-      const fakeValue = faker.datatype.number();
+      const fakeValue = faker.number.int();
       ObjectUtils.setUpdateObjectIfEmpty(testObj, "numberValue", fakeValue, updateObj);
 
       // test object should not have changed

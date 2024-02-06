@@ -175,7 +175,10 @@ class TransformIterator<Input, T> implements IterableIterator<T> {
     return this;
   }
 
-  constructor(private iterator: IterableIterator<Input>, private transformFn: (v: Input) => T | undefined) {}
+  constructor(
+    private iterator: IterableIterator<Input>,
+    private transformFn: (v: Input) => T | undefined,
+  ) {}
 
   next(): IteratorResult<T, T | undefined> {
     return this._next();

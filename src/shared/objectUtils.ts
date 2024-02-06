@@ -15,7 +15,7 @@ const setUpdateObjectIfEmpty = <T extends object, K extends keyof T>(
   obj: T,
   key: K,
   newValue: T[K],
-  updateObj: Partial<T>
+  updateObj: Partial<T>,
 ) => {
   const currentValue = obj[key];
 
