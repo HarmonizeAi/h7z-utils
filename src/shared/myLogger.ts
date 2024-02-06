@@ -49,7 +49,7 @@ export class MyLogger {
     printMessage(this, message, chalk.green, true, extras, "stdout", false);
   }
 
-  warn(message: string, extras?: Record<string, unknown>, user?: { uid: string; email?: string }) {
+  warn(message: string, extras?: Record<string, unknown>) {
     if (!isLogLevelEnabled("warn")) {
       return;
     }
