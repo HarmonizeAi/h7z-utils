@@ -1,4 +1,17 @@
-import { Left, Right, isLeft, isRight, match, mapLeft, mapRight, getRight, getLeft, isEither } from "./either";
+import {
+  Left,
+  Right,
+  isLeft,
+  isRight,
+  match,
+  mapLeft,
+  mapRight,
+  getRight,
+  getLeft,
+  isEither,
+  flatMapRight,
+  flatMapLeft,
+} from "./either";
 
 describe("either", () => {
   describe("Left", () => {
@@ -123,6 +136,68 @@ describe("either", () => {
       expect(mapFn).not.toHaveBeenCalled();
       expect(isRight(res)).toBe(true);
       expect(res.value).toEqual(oldValue);
+    });
+
+    test("flatMapRight change right", () => {
+      const newValue = Right(1);
+      const oldValue = obj.value;
+
+      const mapFn = jest.fn(() => newValue);
+
+      // should do nothing to left values
+      const resLeftVal = flatMapRight(Left("something"), mapFn);
+      expect(mapFn).toHaveBeenCalledTimes(0);
+      expect(resLeftVal).toEqual(Left("something"));
+
+      const res = flatMapRight(obj, mapFn);
+
+      expect(mapFn).toHaveBeenCalledTimes(1);
+      expect(mapFn).toHaveBeenCalledWith(oldValue);
+      expect(isRight(res)).toBe(true);
+      expect(res).toEqual(newValue);
+    });
+
+    test("flatMapRight make left", () => {
+      const newValue = Left("problem");
+      const oldValue = obj.value;
+
+      const mapFn = jest.fn(() => newValue);
+      const res = flatMapRight(obj, mapFn);
+
+      expect(mapFn).toHaveBeenCalledWith(oldValue);
+      expect(isLeft(res)).toBe(true);
+      expect(res).toEqual(newValue);
+    });
+
+    test("flatMapLeft change left", () => {
+      const obj = Left("left val");
+      const newValue = Left(1);
+
+      const mapFn = jest.fn(() => newValue);
+
+      // should do nothing to right values
+      const resRightVal = flatMapLeft(Right("right val"), mapFn);
+      expect(mapFn).toHaveBeenCalledTimes(0);
+      expect(resRightVal).toEqual(Right("right val"));
+
+      const res = flatMapLeft(obj, mapFn);
+
+      expect(mapFn).toHaveBeenCalledTimes(1);
+      expect(mapFn).toHaveBeenCalledWith(obj.value);
+      expect(isLeft(res)).toBe(true);
+      expect(res).toEqual(newValue);
+    });
+
+    test("flatMapLeft make right", () => {
+      const obj = Left("left val");
+      const newValue = Right("fixed");
+
+      const mapFn = jest.fn(() => newValue);
+      const res = flatMapLeft(obj, mapFn);
+
+      expect(mapFn).toHaveBeenCalledWith(obj.value);
+      expect(isRight(res)).toBe(true);
+      expect(res).toEqual(newValue);
     });
   });
 

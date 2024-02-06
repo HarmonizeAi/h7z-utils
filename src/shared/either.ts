@@ -29,6 +29,24 @@ export const mapLeft = <L, R, T>(input: Either<L, R>, fn: (r: L) => T): Either<T
   }
 };
 
+export const flatMapRight = <L, R, NewR>(input: Either<L, R>, fn: (r: R) => Right<NewR> | Left<L>): Either<L, NewR> => {
+  if (isRight(input)) {
+    const newValue = fn(input.value);
+    return newValue;
+  } else {
+    return input;
+  }
+};
+
+export const flatMapLeft = <L, R, NewL>(input: Either<L, R>, fn: (r: L) => Right<R> | Left<NewL>): Either<NewL, R> => {
+  if (isLeft(input)) {
+    const newValue = fn(input.value);
+    return newValue;
+  } else {
+    return input;
+  }
+};
+
 export const isRight = <L, R>(input: Either<L, R>): input is Right<R> => {
   return input.tag === "right";
 };
