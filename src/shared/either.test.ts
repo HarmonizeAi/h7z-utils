@@ -52,27 +52,58 @@ describe("either", () => {
       expect(rightFn).toHaveBeenCalledTimes(0);
     });
 
-    test("mapLeft", () => {
+    test("mapLeft on left value", () => {
       const newValue = "newLeft";
+      const leftObj = Left(leftValue);
 
       const mapFn = jest.fn(() => newValue);
       const res = mapLeft(leftObj, mapFn);
 
+      expect(mapFn).toHaveBeenCalledTimes(1);
       expect(mapFn).toHaveBeenCalledWith(leftObj.value);
       expect(isLeft(res)).toBe(true);
       expect(res.value).toEqual(newValue);
     });
 
-    test("mapRight", () => {
-      const oldLeftValue = leftObj.value;
+    test("mapLeft on right value", () => {
+      const oldValue = "right value";
+      const rightObj = Right(oldValue);
 
-      const newValue = "newRight";
+      const newValue = 10;
+
+      const mapFn = jest.fn(() => newValue);
+      const res = mapLeft(rightObj, mapFn);
+      expect(mapFn).toHaveBeenCalledTimes(0);
+
+      expect(isRight(res)).toBe(true);
+      expect(res.value).toEqual(oldValue);
+    });
+
+    test("mapRight on right value", () => {
+      const oldValue = "old value";
+      const rightObj = Right(oldValue);
+
+      const newValue = 2;
+      const mapFn = jest.fn(() => newValue);
+      const res = mapRight(rightObj, mapFn);
+
+      expect(mapFn).toHaveBeenCalledTimes(1);
+      expect(mapFn).toHaveBeenCalledWith(oldValue);
+      expect(isRight(res)).toBe(true);
+      expect(res.value).toEqual(newValue);
+    });
+
+    test("mapRight on left value", () => {
+      const oldValue = "old value";
+      const leftObj = Left(oldValue);
+
+      const newValue = 2;
       const mapFn = jest.fn(() => newValue);
       const res = mapRight(leftObj, mapFn);
 
-      expect(mapFn).not.toHaveBeenCalled();
+      expect(mapFn).toHaveBeenCalledTimes(0);
       expect(isLeft(res)).toBe(true);
-      expect(res.value).toEqual(oldLeftValue);
+      expect(res.value).toEqual(oldValue);
     });
   });
 

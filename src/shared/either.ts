@@ -1,12 +1,15 @@
-export interface Left<T> {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export interface Left<T = any> {
   tag: "left";
   value: T;
 }
-export interface Right<T> {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export interface Right<T = any> {
   tag: "right";
   value: T;
 }
-export type Either<L, R> = Left<L> | Right<R>;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export type Either<L = any, R = any> = Left<L> | Right<R>;
 
 export const match = <T, L, R>(input: Either<L, R>, left: (left: L) => T, right: (right: R) => T) => {
   switch (input.tag) {
@@ -17,22 +20,27 @@ export const match = <T, L, R>(input: Either<L, R>, left: (left: L) => T, right:
   }
 };
 
-export const mapRight = <L, R, T>(input: Either<L, R>, fn: (r: R) => T): Either<L, T> => {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const mapRight = <E extends Either, T>(
+  input: E,
+  fn: (r: Extract<E, Right>["value"]) => T,
+): Extract<E, Left> | (Extract<E, Right> extends never ? never : Right<T>) => {
   if (isRight(input)) {
     const newValue = fn(input.value);
-    return Right(newValue);
-  } else {
-    return input;
+    return Right(newValue) as Extract<E, Right> extends never ? never : Right<T>;
   }
+  return input as Extract<E, Left>;
 };
 
-export const mapLeft = <L, R, T>(input: Either<L, R>, fn: (r: L) => T): Either<T, R> => {
+export const mapLeft = <E extends Either, T>(
+  input: E,
+  fn: (r: Extract<E, Left>["value"]) => T,
+): Extract<E, Right> | (Extract<E, Left> extends never ? never : Left<T>) => {
   if (isLeft(input)) {
     const newValue = fn(input.value);
-    return Left(newValue);
-  } else {
-    return input;
+    return Left(newValue) as Extract<E, Left> extends never ? never : Left<T>;
   }
+  return input as Extract<E, Right>;
 };
 
 export const flatMapRight = <L, R, NewL, NewR, Ret extends Right<NewR> | Left<NewL>>(
